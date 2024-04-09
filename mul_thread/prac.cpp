@@ -3,21 +3,17 @@
 #include <chrono>
 #include <vector>
 #include <mutex>
+#include <atomic>
 const auto max_threads = 64;
-volatile int sum;
+//volatile int sum;
+std::atomic <int> sum;	//atomic 자료구조 실험
 std::mutex mylock;
 
 
 void thread_func(int num_threads) {
-	volatile int local_sum=0;
 	for (auto i = 0; i < 50000000 / num_threads; ++i) {
-		local_sum += 2;
+		sum += 2;
 	}
-	mylock.lock();
-	sum += local_sum;
-	mylock.unlock();
-	
-	
 }
 int main() {
 	std::vector<std::thread> threads;

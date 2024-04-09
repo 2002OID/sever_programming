@@ -9,15 +9,14 @@ std::mutex mylock;
 
 
 void thread_func(int num_threads) {
-	volatile int local_sum = 0;
+	volatile int local_sum=0;
 	for (auto i = 0; i < 50000000 / num_threads; ++i) {
-		
 		local_sum += 2;
-		
 	}
 	mylock.lock();
 	sum += local_sum;
 	mylock.unlock();
+	
 	
 }
 int main() {
